@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from 'emailjs-com';
 import chocoImage from '../assets/choco.jpg';
 
 const Modal: React.FC<{ isOpen: boolean; onClose: () => void; children: React.ReactNode }> = ({ isOpen, onClose, children }) => {
@@ -35,6 +36,7 @@ const ChocolateDay: React.FC = () => {
       ...prevResults,
       [chocolateType]: prevResults[chocolateType] + 1,
     }));
+    sendEmail('Vote', chocolateType);
   };
 
   const handleQuiz = () => {
@@ -44,6 +46,7 @@ const ChocolateDay: React.FC = () => {
 
   const handleChocolateSubmit = () => {
     setChocolateSubmitted(true);
+    sendEmail('Chocolate Name', chocolateName);
   };
 
   const handleQuizAnswerChange = (question: string, answer: string) => {
@@ -68,6 +71,21 @@ const ChocolateDay: React.FC = () => {
       setQuizResult('Mixed Chocolate Lover');
     }
     setIsModalOpen(false);
+    sendEmail('Quiz Result', quizResult || 'No Result');
+  };
+
+  const sendEmail = (subject: string, message: string) => {
+    const templateParams = {
+      to_email: 'socialshivangi.2806@gmail.com',
+      message: `Subject: ${subject}, Message: ${message}`
+    };
+
+    emailjs.send('service_f87hucr', 'template_ycfj3yh', templateParams, 'ke3RwZ5WCHfBcWjCd')
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+      }, (err) => {
+        console.log('FAILED...', err);
+      });
   };
 
   return (
