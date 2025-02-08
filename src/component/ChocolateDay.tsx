@@ -24,6 +24,7 @@ const ChocolateDay: React.FC = () => {
   const [quizAnswers, setQuizAnswers] = useState<{ [key: string]: string }>({});
   const [quizResult, setQuizResult] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showLoveMessage, setShowLoveMessage] = useState(false);
 
   const handleVote = (chocolateType: string) => {
     setVote(chocolateType);
@@ -78,6 +79,14 @@ const ChocolateDay: React.FC = () => {
         console.log('FAILED...', err);
       });
   };
+
+  if (showLoveMessage) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-black">
+        <p className="text-8xl text-white font-bold">YOU 😉</p>
+      </div>
+    );
+  }
 
   return (
     <div className="relative flex flex-col justify-center items-center h-screen text-center">
@@ -158,6 +167,8 @@ const ChocolateDay: React.FC = () => {
                 <div className="mt-8">
                   <h3 className="text-2xl mb-4 font-bold">Your Chocolate Personality:</h3>
                   <p className="text-xl text-white font-bold">{quizResult}</p>
+                  <p className="text-xl text-white font-bold"> Ohh so you Love thesee!!!!! But you know what I Love??</p>
+                  <button onClick={() => setShowLoveMessage(true)} className="m-2 px-4 py-2 text-white bg-[#5C4033] rounded hover:bg-[#3e2a1f] font-bold transition duration-300 ease-in-out transform hover:scale-105">What?</button>
                 </div>
               )}
             </>
