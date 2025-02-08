@@ -18,11 +18,6 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void; children: React.Re
 
 const ChocolateDay: React.FC = () => {
   const [vote, setVote] = useState<string | null>(null);
-  const [results, setResults] = useState<{ [key: string]: number }>({
-    Dark: 0,
-    Milk: 0,
-    White: 0,
-  });
   const [quizTaken, setQuizTaken] = useState(false);
   const [chocolateName, setChocolateName] = useState('');
   const [chocolateSubmitted, setChocolateSubmitted] = useState(false);
@@ -32,10 +27,6 @@ const ChocolateDay: React.FC = () => {
 
   const handleVote = (chocolateType: string) => {
     setVote(chocolateType);
-    setResults((prevResults) => ({
-      ...prevResults,
-      [chocolateType]: prevResults[chocolateType] + 1,
-    }));
     sendEmail('Vote', chocolateType);
   };
 
