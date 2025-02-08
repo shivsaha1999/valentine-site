@@ -84,6 +84,7 @@ const ChocolateDay: React.FC = () => {
     return (
       <div className="flex justify-center items-center h-screen bg-black">
         <p className="text-8xl text-white font-bold">YOU 😉</p>
+        <p className="text-6xl text-white font-bold">Did I make you BLUSH Babe? Be Honest!!</p>
       </div>
     );
   }
