@@ -83,8 +83,18 @@ const ChocolateDay: React.FC = () => {
   if (showLoveMessage) {
     return (
       <div className="flex justify-center items-center h-screen bg-black">
-        <p className="text-8xl text-white font-bold">YOU 😉</p>
-        <p className="text-6xl text-white font-bold">Did I make you BLUSH Babe? Be Honest!!</p>
+        <div className="text-center">
+          <p className="text-8xl text-white font-bold">YOU 😉</p>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <p className="text-sm text-white font-bold">Did I make you BLUSH Babe? Be Honest!!</p>
+        </div>
       </div>
     );
   }
