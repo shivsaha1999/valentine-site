@@ -1,0 +1,6 @@
+.love-bg {
+  background-image: url('../assets/love-bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.5; /* Adjust the opacity as needed */
+}

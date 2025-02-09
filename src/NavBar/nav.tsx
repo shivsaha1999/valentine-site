@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import emailjs from 'emailjs-com';
 
 const NavBar: React.FC = () => {
   const location = useLocation();
@@ -62,9 +63,24 @@ const NavBar: React.FC = () => {
     }
   };
 
+  const sendEmail = (pageName: string) => {
+    const templateParams = {
+      to_email: 'socialshivangi.2806@gmail.com',
+      message: `${pageName} page is clicked by him!`
+    };
+
+    emailjs.send('service_f87hucr', 'template_ycfj3yh', templateParams, 'ke3RwZ5WCHfBcWjCd')
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+      }, (err) => {
+        console.log('FAILED...', err);
+      });
+  };
+
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>, link: string) => {
     if (isValidDate(link)) {
       setActiveLink(link);
+      sendEmail(link);
     } else {
       event.preventDefault();
       navigate("/come-back-later");
