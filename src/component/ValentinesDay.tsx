@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import confetti from "canvas-confetti";
+import emailjs from 'emailjs-com';
 import kissMusic from "../assets/kiss-music.mp4"; // Import the video file
 
 const ValentinesDay: React.FC = () => {
@@ -7,14 +8,25 @@ const ValentinesDay: React.FC = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [showCelebrateMessage, setShowCelebrateMessage] = useState(false);
 
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.error("Error attempting to play the video:", error);
+      });
+    }
+  }, []);
+
   // Play the video and hide messages
   const handlePlayAgain = () => {
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
-      videoRef.current.play();
+      videoRef.current.play().catch(error => {
+        console.error("Error attempting to play the video:", error);
+      });
     }
     setShowMessage(false);
     setShowCelebrateMessage(false);
+    sendEmail('Play Again button clicked');
   };
 
   // Show celebration message when video ends
@@ -48,6 +60,22 @@ const ValentinesDay: React.FC = () => {
     };
 
     confettiLoop();
+    sendEmail('Celebrate button clicked');
+  };
+
+  // Send email using emailJS
+  const sendEmail = (message: string) => {
+    const templateParams = {
+      to_email: 'socialshivangi.2806@gmail.com',
+      message: message
+    };
+
+    emailjs.send('service_f87hucr', 'template_ycfj3yh', templateParams, 'ke3RwZ5WCHfBcWjCd')
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+      }, (err) => {
+        console.log('FAILED...', err);
+      });
   };
 
   return (
